@@ -1,0 +1,72 @@
+# Configuration file for Time Series Analysis Project
+# State Space Models and Advanced Forecasting
+
+# Data Configuration
+data:
+  synthetic:
+    n_points: 200
+    trend_strength: 0.05
+    seasonal_amplitude: 2
+    seasonal_period: 12
+    noise_scale: 0.5
+    random_seed: 42
+  
+  real_data:
+    sources:
+      - "energy"
+      - "traffic" 
+      - "stock"
+      - "weather"
+    cache_dir: "data/external"
+
+# Model Configuration
+models:
+  state_space:
+    level: "local linear trend"
+    seasonal: 12
+    trend: true
+  
+  arima:
+    auto_arima: true
+    max_p: 5
+    max_q: 5
+    max_P: 2
+    max_Q: 2
+  
+  prophet:
+    yearly_seasonality: true
+    weekly_seasonality: false
+    daily_seasonality: false
+    seasonality_mode: "additive"
+  
+  lstm:
+    sequence_length: 50
+    hidden_size: 64
+    num_layers: 2
+    dropout: 0.2
+    epochs: 100
+    batch_size: 32
+
+# Visualization Configuration
+visualization:
+  figure_size: [12, 8]
+  style: "seaborn-v0_8"
+  color_palette: "husl"
+  save_plots: true
+  plot_format: "png"
+  dpi: 300
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} - {message}"
+  file: "logs/time_series_analysis.log"
+  rotation: "1 day"
+  retention: "30 days"
+
+# Streamlit Configuration
+streamlit:
+  page_title: "Time Series Analysis Dashboard"
+  page_icon: "📈"
+  layout: "wide"
+  sidebar_state: "expanded"
